@@ -1,0 +1,37 @@
+{
+  "name": "workflow-automation-builder",
+  "version": "1.0.0",
+  "description": "Allows users to create, visualize, and manage workflows.",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start"
+  },
+  "keywords": [
+    "workflow",
+    "automation",
+    "builder",
+    "visualization"
+  ],
+  "author": "Sonam Gupta",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.1.0",
+    "react-hook-form": "^7.55.0",
+    "react-scripts": "^5.0.1",
+    "react-table": "^7.8.0",
+    "reactflow": "^11.11.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
