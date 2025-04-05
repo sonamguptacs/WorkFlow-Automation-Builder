@@ -16,19 +16,7 @@ export const FlowProvider = ({ children }) => {
       id: '1',
       type: 'task',
       position: { x: 50, y: 50 },
-      data: { label: 'Task Node' },
-    },
-    {
-      id: '2',
-      type: 'approval',
-      position: { x: 300, y: 100 },
-      data: { label: 'Approval Node' },
-    },
-    {
-      id: '3',
-      type: 'delay',
-      position: { x: 550, y: 150 },
-      data: { label: 'Delay Node' },
+      data: { label: 'Start' },
     },
   ])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -36,6 +24,7 @@ export const FlowProvider = ({ children }) => {
   const [history, setHistory] = useState([])
   const [future, setFuture] = useState([])
   const [editNode, setEditNode] = useState(null)
+  const [nodeType, setNodeType] = useState('task')
 
   useEffect(() => {
     const stored = localStorage.getItem('workflow')
@@ -120,6 +109,10 @@ export const FlowProvider = ({ children }) => {
       addNodeAtPosition,
       editNode,
       setEditNode,
+      setNodes,
+      setEdges,
+      nodeType,
+      setNodeType,
     }
   }, [
     nodes,
@@ -134,6 +127,7 @@ export const FlowProvider = ({ children }) => {
     redo,
     editNode,
     setEditNode,
+    nodeType,
   ])
 
   return <FlowContext.Provider value={value}>{children}</FlowContext.Provider>

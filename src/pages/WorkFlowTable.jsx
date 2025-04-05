@@ -39,6 +39,7 @@ export const WorkFlowTable = () => {
         ),
       },
       { Header: 'Status', accessor: 'status' },
+      { Header: 'Actions', accessor: 'actions' },
     ],
     [nodes, setNodes],
   )

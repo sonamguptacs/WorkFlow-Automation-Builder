@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactFlow, { Background, MiniMap, Controls } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { useFlowContext } from '../context/WorkFlowContext'
@@ -15,24 +15,30 @@ export const WorkFlowCanvas = () => {
     onNodeClick,
     undo,
     redo,
-    selectedNode,
     deleteNodeOrEdge,
+    nodeType,
+    setNodeType,
+    setNodes,
     addNodeAtPosition,
-    setEditNode,
   } = useFlowContext()
 
-  const [nodeType, setNodeType] = useState('task')
-  const [isAdding, setIsAdding] = useState(false)
+  const handleAdd = () => {
+    setNodes((prev) => {
+      const newId = `${Date.now()}`
 
-  const handlePaneClick = (e) => {
-    if (!isAdding) return
-    const bounds = e.target.getBoundingClientRect()
-    const position = {
-      x: e.clientX - bounds.left,
-      y: e.clientY - bounds.top,
-    }
-    addNodeAtPosition(position, nodeType)
-    setIsAdding(false)
+      const position = { x: 0, y: 0 }
+
+      const newNode = {
+        id: newId,
+        type: nodeType,
+        position,
+        data: { label: nodes.length > 0 ? nodeType : 'Start' },
+      }
+
+      addNodeAtPosition(position, newId, nodeType)
+
+      return [...prev, newNode]
+    })
   }
 
   return (
@@ -43,19 +49,9 @@ export const WorkFlowCanvas = () => {
           <option value="approval">Approval</option>
           <option value="delay">Delay</option>
         </select>
-        <Button onClick={() => setIsAdding(true)}>Add Node</Button>
+        <Button onClick={handleAdd}>Add Node</Button>
         <Button onClick={undo}>Undo</Button>
         <Button onClick={redo}>Redo</Button>
-        {selectedNode && (
-          <React.Fragment>
-            <Button onClick={() => deleteNodeOrEdge(selectedNode.id, 'node')}>
-              Delete Node
-            </Button>
-            <Button onClick={() => setEditNode(selectedNode.id)}>
-              Edit Node
-            </Button>
-          </React.Fragment>
-        )}
       </Toolbar>
       <ReactFlow
         nodes={nodes}
@@ -64,7 +60,6 @@ export const WorkFlowCanvas = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
-        onPaneClick={handlePaneClick}
         onEdgeClick={(event, edge) => {
           event.stopPropagation()
           deleteNodeOrEdge(edge.id, 'edge')

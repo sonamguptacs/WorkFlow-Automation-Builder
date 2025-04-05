@@ -3,7 +3,7 @@ import { useFlowContext } from '../context/WorkFlowContext'
 import { useForm } from 'react-hook-form'
 
 export const WorkFlowForm = () => {
-  const { editNode, setEditNode } = useFlowContext()
+  const { editNode, setEditNode, setNodes } = useFlowContext()
   const {
     register,
     handleSubmit,
@@ -11,8 +11,23 @@ export const WorkFlowForm = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const onSubmit = (formData) => {
+    setNodes((nodes) =>
+      nodes.map((node) =>
+        node.id === editNode.id
+          ? {
+              ...node,
+              data: {
+                ...node.data,
+                ...formData,
+                label: formData.taskName, // Optional: update label
+              },
+            }
+          : node,
+      ),
+    )
     setEditNode(null)
+    reset()
   }
 
   if (!editNode) return null
