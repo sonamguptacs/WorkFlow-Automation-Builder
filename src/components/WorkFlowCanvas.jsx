@@ -19,7 +19,6 @@ export const WorkFlowCanvas = () => {
     nodeType,
     setNodeType,
     setNodes,
-    addNodeAtPosition,
   } = useFlowContext()
 
   const handleAdd = () => {
@@ -35,10 +34,20 @@ export const WorkFlowCanvas = () => {
         data: { label: nodes.length > 0 ? nodeType : 'Start' },
       }
 
-      addNodeAtPosition(position, newId, nodeType)
-
       return [...prev, newNode]
     })
+  }
+
+  const reset = () => {
+    setNodes([
+      {
+        id: '1',
+        type: 'task',
+        position: { x: 50, y: 50 },
+        data: { label: 'Start' },
+      },
+    ])
+    setNodeType('task')
   }
 
   return (
@@ -52,6 +61,7 @@ export const WorkFlowCanvas = () => {
         <Button onClick={handleAdd}>Add Node</Button>
         <Button onClick={undo}>Undo</Button>
         <Button onClick={redo}>Redo</Button>
+        <Button onClick={reset}>Reset</Button>
       </Toolbar>
       <ReactFlow
         nodes={nodes}
