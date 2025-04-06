@@ -1,6 +1,6 @@
 {
   "name": "workflow-automation-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Allows users to create, visualize, and manage workflows.",
   "main": "index.jsx",
   "scripts": {
