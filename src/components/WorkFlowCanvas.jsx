@@ -35,10 +35,10 @@ export const WorkFlowCanvas = () => {
     handleExport,
     fileInputRef,
   } = useCanvasHooks()
-
   return (
     <React.Fragment>
       <Toolbar>
+        <Button onClick={handleAdd}>Add Node</Button>
         <select onChange={(e) => setNodeType(e.target.value)} value={nodeType}>
           <option value="task">Task</option>
           <option value="condition">Condition</option>
@@ -53,8 +53,6 @@ export const WorkFlowCanvas = () => {
           ref={fileInputRef}
         />
         <Button onClick={() => fileInputRef.current.click()}>Import</Button>
-
-        <Button onClick={handleAdd}>Add Node</Button>
         <Button onClick={undo}>Undo</Button>
         <Button onClick={redo}>Redo</Button>
         <Button onClick={reset}>Reset</Button>

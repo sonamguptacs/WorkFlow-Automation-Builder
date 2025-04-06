@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable } from 'react-table'
+import { actions, useTable } from 'react-table'
 import styled from 'styled-components'
 import { useFlowContext } from '../context/WorkFlowContext'
 
@@ -31,7 +31,8 @@ export const WorkFlowTable = () => {
       id: node.id,
       type: node.type,
       name: node.data.label || '',
-      status: 'Pending', // Placeholder status
+      status: node.data.status || 'Pending',
+      actions: node.data.actions || 'None',
     }))
   }, [nodes])
 
@@ -54,8 +55,36 @@ export const WorkFlowTable = () => {
           />
         ),
       },
-      { Header: 'Status', accessor: 'status' },
-      { Header: 'Actions', accessor: 'actions' },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: ({ row, value }) => (
+          <input
+            defaultValue={value}
+            onBlur={(e) => {
+              const updated = [...nodes]
+              const index = updated.findIndex((n) => n.id === row.original.id)
+              updated[index].data.status = e.target.value
+              setNodes(updated)
+            }}
+          />
+        ),
+      },
+      {
+        Header: 'Actions',
+        accessor: 'actions',
+        Cell: ({ row, value }) => (
+          <input
+            defaultValue={value}
+            onBlur={(e) => {
+              const updated = [...nodes]
+              const index = updated.findIndex((n) => n.id === row.original.id)
+              updated[index].data.actions = e.target.value
+              setNodes(updated)
+            }}
+          />
+        ),
+      },
     ],
     [nodes, setNodes],
   )

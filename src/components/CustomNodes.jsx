@@ -94,7 +94,7 @@ const AddButton = styled(IconButton)`
   }
 `
 
-const BaseNode = ({ data, id }) => {
+const BaseNode = ({ data, id, type, ...node }) => {
   const {
     setEditNode,
     setNodes,
@@ -104,7 +104,7 @@ const BaseNode = ({ data, id }) => {
   } = useFlowContext()
 
   const handleEdit = () => {
-    setEditNode({ id, ...data })
+    setEditNode({ data, id, type, ...node })
   }
 
   const handleDelete = () => {
@@ -139,6 +139,7 @@ const BaseNode = ({ data, id }) => {
         position,
         data: { label: `${nodeType} node` },
       }
+      setEditNode({ ...newNode })
 
       return [...prev, newNode]
     })
@@ -152,14 +153,12 @@ const BaseNode = ({ data, id }) => {
         type: 'default',
       },
     ])
-
-    setEditNode({ id: newId, type: nodeType })
   }
 
   return (
     <NodeContainer>
       <LabelContainer>
-        {getNodeIcon(data.label)}
+        {getNodeIcon(type)}
         <Text>
           {<abbr title={data.label}>{data.label}</abbr> || 'Untitled'}
         </Text>

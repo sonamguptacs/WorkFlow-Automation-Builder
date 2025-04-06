@@ -1,6 +1,7 @@
 import { SidePanel, FormWrapper, CloseButton } from './styledComponents'
 import { useFlowContext } from '../context/WorkFlowContext'
 import { useForm } from 'react-hook-form'
+import { getFormFields } from './utils'
 
 export const WorkFlowForm = () => {
   const { editNode, setEditNode, setNodes } = useFlowContext()
@@ -20,7 +21,6 @@ export const WorkFlowForm = () => {
               data: {
                 ...node.data,
                 ...formData,
-                label: formData.taskName, // Optional: update label
               },
             }
           : node,
@@ -37,21 +37,18 @@ export const WorkFlowForm = () => {
       <CloseButton onClick={() => setEditNode(null)}>&times;</CloseButton>
       <h3>Configure Task</h3>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Task Name</label>
-          <input {...register('taskName', { required: true })} />
-          {errors.taskName && <span>Required</span>}
-        </div>
-        <div>
-          <label>Assignee</label>
-          <input {...register('assignee', { required: true })} />
-          {errors.assignee && <span>Required</span>}
-        </div>
-        <div>
-          <label>Due Date</label>
-          <input type="date" {...register('dueDate', { required: true })} />
-          {errors.dueDate && <span>Required</span>}
-        </div>
+        {getFormFields(editNode.type).map((field) => (
+          <div key={field.name}>
+            <label htmlFor={field.name}>{field.label}</label>
+            <input
+              id={field.name}
+              {...register(field.name, { required: field.required || false })}
+              defaultValue={editNode.data[field.name]}
+              type={field.type}
+            />
+            {errors[field.name] && <span>This field is required</span>}
+          </div>
+        ))}
         <button type="submit">Save</button>
       </FormWrapper>
     </SidePanel>
