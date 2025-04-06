@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import { useNodesState, useEdgesState, addEdge } from 'reactflow'
 import sampleData from '../data/sampleData.json'
+import { version } from '../../package.json'
 
 const FlowContext = createContext(null)
 
@@ -22,7 +23,7 @@ export const FlowProvider = ({ children }) => {
   const [workflowName, setWorkflowName] = useState('Sample Workflow')
 
   useEffect(() => {
-    const stored = localStorage.getItem('workflow')
+    const stored = localStorage.getItem(`workflow_${version}`)
     if (stored) {
       const { nodes: savedNodes, edges: savedEdges } = JSON.parse(stored)
       setNodes(savedNodes)
@@ -31,7 +32,10 @@ export const FlowProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('workflow', JSON.stringify({ nodes, edges }))
+    localStorage.setItem(
+      `workflow_${version}`,
+      JSON.stringify({ nodes, edges }),
+    )
   }, [nodes, edges])
 
   const addHistory = useCallback(() => {
