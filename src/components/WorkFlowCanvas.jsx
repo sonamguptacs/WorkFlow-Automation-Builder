@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import ReactFlow, { Background, MiniMap, Controls } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { useFlowContext } from '../context/WorkFlowContext'
 import { nodeTypes } from './CustomNodes'
 import { Toolbar, Button } from './styledComponents'
+import { useCanvasHooks } from './hooks/canvasHooks'
 
 export const WorkFlowCanvas = () => {
   const {
@@ -18,77 +19,18 @@ export const WorkFlowCanvas = () => {
     deleteNodeOrEdge,
     nodeType,
     setNodeType,
-    setNodes,
-    setEdges,
   } = useFlowContext()
 
-  const [connectStartNode, setConnectStartNode] = useState(null)
-  const reactFlowWrapper = useRef(null)
-  const [reactFlowInstance, setReactFlowInstance] = useState(null)
-
-  const handleAdd = () => {
-    setNodes((prev) => {
-      const newId = `${Date.now()}`
-
-      const position = { x: 0, y: 0 }
-
-      const newNode = {
-        id: newId,
-        type: nodeType,
-        position,
-        data: { label: nodes.length > 0 ? nodeType : 'Start' },
-      }
-
-      return [...prev, newNode]
-    })
-  }
-
-  const reset = () => {
-    setNodes([
-      {
-        id: '1',
-        type: 'task',
-        position: { x: 50, y: 50 },
-        data: { label: 'Start' },
-      },
-    ])
-    setNodeType('task')
-  }
-
-  const onConnectStart = (_, { nodeId }) => {
-    setConnectStartNode(nodeId)
-  }
-
-  const onConnectEnd = (event) => {
-    const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
-
-    const position = reactFlowInstance.project({
-      x: event.clientX - reactFlowBounds.left,
-      y: event.clientY - reactFlowBounds.top,
-    })
-
-    const newNodeId = `${Date.now()}`
-
-    const newNode = {
-      id: newNodeId,
-      type: nodeType,
-      position,
-      data: { label: nodeType },
-    }
-
-    setNodes((nds) => [...nds, newNode])
-    setEdges((eds) => [
-      ...eds,
-      {
-        id: `e${connectStartNode}-${newNodeId}`,
-        source: connectStartNode,
-        target: newNodeId,
-        type: nodeType,
-      },
-    ])
-
-    setConnectStartNode(null)
-  }
+  const {
+    handleAdd,
+    reset,
+    onConnectStart,
+    onConnectEnd,
+    onDrop,
+    onDragOver,
+    setReactFlowInstance,
+    reactFlowWrapper,
+  } = useCanvasHooks()
 
   return (
     <React.Fragment>
@@ -103,7 +45,13 @@ export const WorkFlowCanvas = () => {
         <Button onClick={redo}>Redo</Button>
         <Button onClick={reset}>Reset</Button>
       </Toolbar>
-      <div ref={reactFlowWrapper} style={{ width: '100%', height: '100%' }}>
+      <section
+        ref={reactFlowWrapper}
+        style={{ width: '100%', height: '100%' }}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
+        aria-label="Workflow Canvas"
+      >
         <ReactFlow
           onInit={setReactFlowInstance}
           nodes={nodes}
@@ -125,7 +73,7 @@ export const WorkFlowCanvas = () => {
           <MiniMap />
           <Controls />
         </ReactFlow>
-      </div>
+      </section>
     </React.Fragment>
   )
 }
