@@ -161,6 +161,6 @@ const BaseNode = ({ data, id }) => {
 
 export const nodeTypes = {
   task: BaseNode,
-  approval: BaseNode,
-  delay: BaseNode,
+  condition: BaseNode,
+  notification: BaseNode,
 }
