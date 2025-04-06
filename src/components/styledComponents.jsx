@@ -7,14 +7,14 @@ export const fadeIn = keyframes`
 
 export const Container = styled.div`
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100dvh - 60px);
 
   @media (max-width: 768px) {
-    height: calc(100vh - 100px);
+    height: calc(100dvh - 120px);
   }
 
   @media (max-width: 480px) {
-    height: calc(100vh - 220px);
+    height: calc(100dvh - 220px);
   }
 `
 
@@ -26,7 +26,7 @@ export const SidePanel = styled.div`
   border-left: 1px solid #ccc;
   padding: 20px;
   animation: ${fadeIn} 0.3s ease-in-out;
-  height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
   box-sizing: border-box;
 
