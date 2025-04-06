@@ -5,6 +5,22 @@ import { useFlowContext } from '../context/WorkFlowContext'
 
 const TableContainer = styled.div`
   padding: 20px;
+  margin: auto;
+  width: 95%;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 `
 
 export const WorkFlowTable = () => {
