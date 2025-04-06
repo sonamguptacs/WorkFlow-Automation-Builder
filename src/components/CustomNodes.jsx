@@ -9,8 +9,39 @@ const NodeContainer = styled.div`
   padding: 10px;
   position: relative;
   min-width: 160px;
-  text-align: center;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 480px) {
+    min-width: 100px;
+    padding: 4px;
+  }
+`
+
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 480px) {
+    gap: 0px;
+  }
+`
+
+const Text = styled.div`
+  font-size: 18px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 40%;
+  white-space: nowrap;
+  abbr {
+    text-decoration: none;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `
 
 const IconButton = styled.button`
@@ -24,6 +55,11 @@ const IconButton = styled.button`
 
   &:hover {
     color: #ff4136;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2px;
+    font-size: 10px;
   }
 `
 
@@ -110,11 +146,13 @@ const BaseNode = ({ data, id }) => {
 
   return (
     <NodeContainer>
-      <EditButton onClick={handleEdit}>✏️</EditButton>
-      <DeleteButton onClick={handleDelete}>🗑️</DeleteButton>
-      <AddButton onClick={handleAdd}>➕</AddButton>
+      <Text>{<abbr title={data.label}>{data.label}</abbr> || 'Untitled'}</Text>
+      <IconContainer>
+        <EditButton onClick={handleEdit}>✏️</EditButton>
+        <DeleteButton onClick={handleDelete}>🗑️</DeleteButton>
+        <AddButton onClick={handleAdd}>➕</AddButton>
+      </IconContainer>
       <Handle type="target" position={Position.Top} />
-      <div>{data.label || 'Untitled'}</div>
       <Handle type="source" position={Position.Bottom} />
     </NodeContainer>
   )

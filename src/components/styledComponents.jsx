@@ -7,10 +7,14 @@ export const fadeIn = keyframes`
 
 export const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 60px);
 
   @media (max-width: 768px) {
-    min-height: 100vh;
+    height: calc(100vh - 100px);
+  }
+
+  @media (max-width: 480px) {
+    height: calc(100vh - 220px);
   }
 `
 
