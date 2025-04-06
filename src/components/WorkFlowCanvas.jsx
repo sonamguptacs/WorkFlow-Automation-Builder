@@ -5,6 +5,7 @@ import { useFlowContext } from '../context/WorkFlowContext'
 import { nodeTypes } from './CustomNodes'
 import { Toolbar, Button } from './styledComponents'
 import { useCanvasHooks } from './hooks/canvasHooks'
+import { WorkflowTitle } from './WorkFlowTitle'
 
 export const WorkFlowCanvas = () => {
   const {
@@ -30,6 +31,9 @@ export const WorkFlowCanvas = () => {
     onDragOver,
     setReactFlowInstance,
     reactFlowWrapper,
+    handleImport,
+    handleExport,
+    fileInputRef,
   } = useCanvasHooks()
 
   return (
@@ -40,6 +44,16 @@ export const WorkFlowCanvas = () => {
           <option value="condition">Condition</option>
           <option value="notification">Notification</option>
         </select>
+        <Button onClick={handleExport}>Export</Button>
+        <input
+          type="file"
+          accept="application/json"
+          onChange={handleImport}
+          style={{ display: 'none' }}
+          ref={fileInputRef}
+        />
+        <Button onClick={() => fileInputRef.current.click()}>Import</Button>
+
         <Button onClick={handleAdd}>Add Node</Button>
         <Button onClick={undo}>Undo</Button>
         <Button onClick={redo}>Redo</Button>
@@ -52,6 +66,7 @@ export const WorkFlowCanvas = () => {
         onDragOver={onDragOver}
         aria-label="Workflow Canvas"
       >
+        <WorkflowTitle />
         <ReactFlow
           onInit={setReactFlowInstance}
           nodes={nodes}

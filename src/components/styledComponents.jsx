@@ -10,11 +10,11 @@ export const Container = styled.div`
   height: calc(100dvh - 60px);
 
   @media (max-width: 768px) {
-    height: calc(100dvh - 120px);
+    height: calc(100dvh - 200px);
   }
 
   @media (max-width: 480px) {
-    height: calc(100dvh - 220px);
+    height: calc(100dvh - 320px);
   }
 `
 

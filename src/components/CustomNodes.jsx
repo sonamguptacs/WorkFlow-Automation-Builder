@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Handle, Position } from 'reactflow'
 import { useFlowContext } from '../context/WorkFlowContext'
+import { getNodeIcon } from './utils'
 
 const NodeContainer = styled.div`
   background: #fff;
@@ -18,6 +19,16 @@ const NodeContainer = styled.div`
     padding: 4px;
   }
 `
+const LabelContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  width: 50%;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`
 
 const IconContainer = styled.div`
   display: flex;
@@ -33,7 +44,7 @@ const Text = styled.div`
   font-size: 18px;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 40%;
+  width: 80%;
   white-space: nowrap;
   abbr {
     text-decoration: none;
@@ -147,14 +158,36 @@ const BaseNode = ({ data, id }) => {
 
   return (
     <NodeContainer>
-      <Text>{<abbr title={data.label}>{data.label}</abbr> || 'Untitled'}</Text>
+      <LabelContainer>
+        {getNodeIcon(data.label)}
+        <Text>
+          {<abbr title={data.label}>{data.label}</abbr> || 'Untitled'}
+        </Text>
+      </LabelContainer>
       <IconContainer>
         <EditButton onClick={handleEdit}>✏️</EditButton>
         <DeleteButton onClick={handleDelete}>🗑️</DeleteButton>
         <AddButton onClick={handleAdd}>➕</AddButton>
       </IconContainer>
       <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
+      {data.label === 'condition' ? (
+        <>
+          <Handle
+            type="source"
+            position={Position.Bottom}
+            id="yes"
+            style={{ left: '25%' }}
+          />
+          <Handle
+            type="source"
+            position={Position.Bottom}
+            id="no"
+            style={{ left: '75%' }}
+          />
+        </>
+      ) : (
+        <Handle type="source" position={Position.Bottom} />
+      )}
     </NodeContainer>
   )
 }

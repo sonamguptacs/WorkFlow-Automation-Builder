@@ -2,10 +2,19 @@ import { useState, useRef, useCallback } from 'react'
 import { useFlowContext } from '../../context/WorkFlowContext'
 
 export const useCanvasHooks = () => {
-  const { nodes, nodeType, setNodeType, setNodes, setEdges } = useFlowContext()
+  const {
+    nodes,
+    edges,
+    nodeType,
+    setNodeType,
+    setNodes,
+    setEdges,
+  } = useFlowContext()
 
   const [connectStartNode, setConnectStartNode] = useState(null)
   const reactFlowWrapper = useRef(null)
+  const fileInputRef = useRef(null)
+
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
 
   const handleAdd = () => {
@@ -80,7 +89,6 @@ export const useCanvasHooks = () => {
 
       const type = event.dataTransfer.getData('application/reactflow')
       if (!type) return
-      console.log({ type })
       const bounds = reactFlowWrapper.current.getBoundingClientRect()
       const position = reactFlowInstance.project({
         x: event.clientX - bounds.left,
@@ -104,6 +112,38 @@ export const useCanvasHooks = () => {
     event.dataTransfer.dropEffect = 'move'
   }
 
+  const handleExport = () => {
+    const dataStr = JSON.stringify({ nodes, edges }, null, 2)
+    const blob = new Blob([dataStr], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'workflow.json'
+    a.click()
+
+    URL.revokeObjectURL(url)
+  }
+
+  const handleImport = (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const { nodes: importedNodes, edges: importedEdges } = JSON.parse(
+          e.target.result,
+        )
+        setNodes(importedNodes || [])
+        setEdges(importedEdges || [])
+      } catch (err) {
+        alert('Invalid JSON file')
+      }
+    }
+    reader.readAsText(file)
+  }
+
   return {
     handleAdd,
     reset,
@@ -113,5 +153,8 @@ export const useCanvasHooks = () => {
     onDragOver,
     setReactFlowInstance,
     reactFlowWrapper,
+    fileInputRef,
+    handleImport,
+    handleExport,
   }
 }

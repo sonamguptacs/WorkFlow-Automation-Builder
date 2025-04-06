@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "task",
+      "position": {
+        "x": 148.70941113339444,
+        "y": -113.49976159141247
+      },
+      "data": {
+        "label": "Start"
+      },
+      "width": 183,
+      "height": 44,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 148.70941113339444,
+        "y": -113.49976159141247
+      },
+      "dragging": false
+    },
+    {
+      "id": "1743945749785",
+      "type": "task",
+      "position": {
+        "x": 56.27691623670495,
+        "y": -23.14576306983824
+      },
+      "data": {
+        "label": "Request Raised",
+        "taskName": "Request Raised",
+        "assignee": "s",
+        "dueDate": "2025-04-07"
+      },
+      "width": 183,
+      "height": 44,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 56.27691623670495,
+        "y": -23.14576306983824
+      }
+    },
+    {
+      "id": "1743945798100",
+      "type": "condition",
+      "position": {
+        "x": 178.64138160609883,
+        "y": 57.70553029023506
+      },
+      "data": {
+        "label": "condition"
+      },
+      "width": 183,
+      "height": 45,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 178.64138160609883,
+        "y": 57.70553029023506
+      },
+      "dragging": false
+    },
+    {
+      "id": "1743945841380",
+      "type": "task",
+      "position": {
+        "x": -38.35131716347831,
+        "y": 162.48247033034502
+      },
+      "data": {
+        "label": "Approved",
+        "taskName": "Approved",
+        "assignee": "a",
+        "dueDate": "2025-04-08"
+      },
+      "width": 183,
+      "height": 44,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -38.35131716347831,
+        "y": 162.48247033034502
+      }
+    },
+    {
+      "id": "1743945843045",
+      "type": "task",
+      "position": {
+        "x": 269.0606806900626,
+        "y": 158.4149414236295
+      },
+      "data": {
+        "label": "Denied",
+        "taskName": "Denied",
+        "assignee": "s",
+        "dueDate": "2025-04-09"
+      },
+      "width": 183,
+      "height": 44,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 269.0606806900626,
+        "y": 158.4149414236295
+      },
+      "dragging": false
+    },
+    {
+      "id": "1743945849627",
+      "type": "notification",
+      "position": {
+        "x": -185.12754197782567,
+        "y": 282.5431748238127
+      },
+      "data": {
+        "label": "notification"
+      },
+      "width": 183,
+      "height": 45,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -185.12754197782567,
+        "y": 282.5431748238127
+      },
+      "dragging": false
+    },
+    {
+      "id": "1743945949300",
+      "type": "notification",
+      "position": {
+        "x": 431.3220869815607,
+        "y": 278.1150889905059
+      },
+      "data": {
+        "label": "notification"
+      },
+      "width": 183,
+      "height": 45,
+      "selected": true,
+      "positionAbsolute": {
+        "x": 431.3220869815607,
+        "y": 278.1150889905059
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "sourceHandle": null,
+      "target": "1743945587608",
+      "targetHandle": null,
+      "id": "reactflow__edge-1-1743945587608"
+    },
+    {
+      "id": "e1-1743945698914",
+      "source": "1",
+      "target": "1743945698914",
+      "type": "task"
+    },
+    {
+      "id": "e1-1743945749785",
+      "source": "1",
+      "target": "1743945749785",
+      "type": "task"
+    },
+    {
+      "id": "e1743945749785-1743945767966",
+      "source": "1743945749785",
+      "target": "1743945767966",
+      "type": "default"
+    },
+    {
+      "source": "1743945749785",
+      "sourceHandle": null,
+      "target": "1743945798100",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945749785-1743945798100"
+    },
+    {
+      "source": "1743945798100",
+      "sourceHandle": "yes",
+      "target": "1743945790357",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945798100yes-1743945790357"
+    },
+    {
+      "id": "e1743945798100-1743945802866",
+      "source": "1743945798100",
+      "target": "1743945802866",
+      "type": "condition"
+    },
+    {
+      "id": "e1743945798100-1743945810889",
+      "source": "1743945798100",
+      "target": "1743945810889",
+      "type": "condition"
+    },
+    {
+      "id": "e1743945798100-1743945818937",
+      "source": "1743945798100",
+      "target": "1743945818937",
+      "type": "condition"
+    },
+    {
+      "source": "1743945798100",
+      "sourceHandle": "yes",
+      "target": "1743945841380",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945798100yes-1743945841380"
+    },
+    {
+      "id": "e1743945798100-1743945857210",
+      "source": "1743945798100",
+      "target": "1743945857210",
+      "type": "condition"
+    },
+    {
+      "id": "e1743945798100-1743945865993",
+      "source": "1743945798100",
+      "target": "1743945865993",
+      "type": "condition"
+    },
+    {
+      "source": "1743945798100",
+      "sourceHandle": "no",
+      "target": "1743945843045",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945798100no-1743945843045"
+    },
+    {
+      "source": "1743945852829",
+      "sourceHandle": null,
+      "target": "1743945843045",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945852829-1743945843045"
+    },
+    {
+      "id": "e1743945843045-1743945877865",
+      "source": "1743945843045",
+      "target": "1743945877865",
+      "type": "condition"
+    },
+    {
+      "source": "1743945841380",
+      "sourceHandle": null,
+      "target": "1743945849627",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945841380-1743945849627"
+    },
+    {
+      "id": "e1743945841380-1743945887642",
+      "source": "1743945841380",
+      "target": "1743945887642",
+      "type": "condition"
+    },
+    {
+      "source": "1743945843045",
+      "sourceHandle": null,
+      "target": "1743945949300",
+      "targetHandle": null,
+      "id": "reactflow__edge-1743945843045-1743945949300"
+    },
+    {
+      "id": "e1743945843045-1743945953362",
+      "source": "1743945843045",
+      "target": "1743945953362",
+      "type": "condition"
+    }
+  ]
+}

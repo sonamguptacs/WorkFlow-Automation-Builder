@@ -7,24 +7,19 @@ import React, {
   useContext,
 } from 'react'
 import { useNodesState, useEdgesState, addEdge } from 'reactflow'
+import sampleData from '../data/sampleData.json'
 
 const FlowContext = createContext(null)
 
 export const FlowProvider = ({ children }) => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([
-    {
-      id: '1',
-      type: 'task',
-      position: { x: 50, y: 50 },
-      data: { label: 'Start' },
-    },
-  ])
-  const [edges, setEdges, onEdgesChange] = useEdgesState([])
+  const [nodes, setNodes, onNodesChange] = useNodesState(sampleData.nodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(sampleData.edges)
   const [selectedNode, setSelectedNode] = useState(null)
   const [history, setHistory] = useState([])
   const [future, setFuture] = useState([])
   const [editNode, setEditNode] = useState(null)
   const [nodeType, setNodeType] = useState('task')
+  const [workflowName, setWorkflowName] = useState('Sample Workflow')
 
   useEffect(() => {
     const stored = localStorage.getItem('workflow')
@@ -113,6 +108,8 @@ export const FlowProvider = ({ children }) => {
       setEdges,
       nodeType,
       setNodeType,
+      workflowName,
+      setWorkflowName,
     }
   }, [
     nodes,

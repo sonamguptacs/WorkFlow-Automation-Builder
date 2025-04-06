@@ -25,6 +25,10 @@ const SidebarWrapper = styled.div`
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
     z-index: 100;
   }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `
 
 const Title = styled.h3`
