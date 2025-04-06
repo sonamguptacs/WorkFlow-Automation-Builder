@@ -88,6 +88,7 @@ const BaseNode = ({ data, id }) => {
     setEditNode,
     setNodes,
     nodeType,
+    setEdges,
     addNodeAtPosition,
   } = useFlowContext()
 
