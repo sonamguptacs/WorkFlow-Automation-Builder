@@ -13,20 +13,6 @@ const SidebarWrapper = styled.div`
   gap: 16px;
 
   @media (max-width: 768px) {
-    flex-direction: row;
-    width: 100%;
-    position: absolute;
-    top: auto;
-    bottom: 50px;
-    right: 0;
-    left: 0;
-    padding: 8px;
-    border-radius: 0;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-  }
-
-  @media (max-width: 480px) {
     display: none;
   }
 `
